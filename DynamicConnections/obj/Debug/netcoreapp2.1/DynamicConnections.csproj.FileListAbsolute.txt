@@ -1,0 +1,11 @@
+C:\Users\faruk\Source\Repos\DynamicConnections\DynamicConnections\bin\Debug\netcoreapp2.1\DynamicConnections.deps.json
+C:\Users\faruk\Source\Repos\DynamicConnections\DynamicConnections\bin\Debug\netcoreapp2.1\DynamicConnections.runtimeconfig.json
+C:\Users\faruk\Source\Repos\DynamicConnections\DynamicConnections\bin\Debug\netcoreapp2.1\DynamicConnections.runtimeconfig.dev.json
+C:\Users\faruk\Source\Repos\DynamicConnections\DynamicConnections\bin\Debug\netcoreapp2.1\DynamicConnections.dll
+C:\Users\faruk\Source\Repos\DynamicConnections\DynamicConnections\obj\Debug\netcoreapp2.1\DynamicConnections.csprojAssemblyReference.cache
+C:\Users\faruk\Source\Repos\DynamicConnections\DynamicConnections\obj\Debug\netcoreapp2.1\DynamicConnections.csproj.CoreCompileInputs.cache
+C:\Users\faruk\Source\Repos\DynamicConnections\DynamicConnections\obj\Debug\netcoreapp2.1\DynamicConnections.AssemblyInfoInputs.cache
+C:\Users\faruk\Source\Repos\DynamicConnections\DynamicConnections\obj\Debug\netcoreapp2.1\DynamicConnections.AssemblyInfo.cs
+C:\Users\faruk\Source\Repos\DynamicConnections\DynamicConnections\bin\Debug\netcoreapp2.1\DynamicConnections.pdb
+C:\Users\faruk\Source\Repos\DynamicConnections\DynamicConnections\obj\Debug\netcoreapp2.1\DynamicConnections.dll
+C:\Users\faruk\Source\Repos\DynamicConnections\DynamicConnections\obj\Debug\netcoreapp2.1\DynamicConnections.pdb
