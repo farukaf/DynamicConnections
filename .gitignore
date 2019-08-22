@@ -3,3 +3,10 @@
 ################################################################################
 
 /FarukDynamicConnection/bin/Debug/netcoreapp2.1
+/UnitTest/obj/Debug/netcoreapp2.1
+/DynamicConnections/bin/Debug/netcoreapp2.1
+/FarukDynamicConnection/obj/Debug/netcoreapp2.1
+/FarukDynamicConnection/obj
+/UnitTest/bin/Debug/netcoreapp2.1
+/.vs/DynamicConnections/v16
+/UnitTest/obj

@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.329
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29209.62
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicConnections", "DynamicConnections\DynamicConnections.csproj", "{DD468B19-9E57-4F3F-8CAE-F7A734089DAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicConnections", "DynamicConnections\DynamicConnections.csproj", "{DD468B19-9E57-4F3F-8CAE-F7A734089DAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarukDynamicConnection", "FarukDynamicConnection\FarukDynamicConnection.csproj", "{F6F3E2BE-9797-4241-92DD-4B112FB6D6F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{C2B49F74-E2B5-4E8B-ACA0-6DA8FCF39B42}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{DD468B19-9E57-4F3F-8CAE-F7A734089DAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD468B19-9E57-4F3F-8CAE-F7A734089DAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD468B19-9E57-4F3F-8CAE-F7A734089DAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6F3E2BE-9797-4241-92DD-4B112FB6D6F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6F3E2BE-9797-4241-92DD-4B112FB6D6F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6F3E2BE-9797-4241-92DD-4B112FB6D6F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6F3E2BE-9797-4241-92DD-4B112FB6D6F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2B49F74-E2B5-4E8B-ACA0-6DA8FCF39B42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2B49F74-E2B5-4E8B-ACA0-6DA8FCF39B42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2B49F74-E2B5-4E8B-ACA0-6DA8FCF39B42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2B49F74-E2B5-4E8B-ACA0-6DA8FCF39B42}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

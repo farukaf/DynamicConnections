@@ -3,33 +3,40 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Dynamic;
 
-namespace DynamicConnections
+namespace FarukDynamicConnection
 {
-    public class DynamicConnection
+    public abstract class DynamicConnection
     {
         public DynamicConnection()
         {
-            SqlConnection = new SqlConnection(this.Conn);
-        }
 
-        /// <summary>
-        /// Throw a connection string
-        /// </summary>
-        /// <param name="connection"></param>
-        public DynamicConnection(string connection)
-        {
-            SqlConnection = new SqlConnection(connection);
         }
 
         /// <summary>
         /// Connection String
         /// </summary>
-        public string Conn { get { return "Data Source=LEEEEEROY;Initial Catalog=Teste;Integrated Security=True"; } }
+        public abstract string Conn { get; }
 
+        private SqlConnection _SqlConnection { get; set; }
         /// <summary>
         /// SqlConnection Object
         /// </summary>
-        public SqlConnection SqlConnection { get; set; }
+        public SqlConnection SqlConnection
+        {
+            get
+            {
+                if (_SqlConnection == null)
+                {
+                    _SqlConnection = new SqlConnection(Conn);
+                    SqlConnection.InfoMessage += OnInfoMessageGenerated;
+                }
+                return _SqlConnection;
+            }
+        }
+        private void OnInfoMessageGenerated(object sender, SqlInfoMessageEventArgs e)
+        {
+            Messages.Add(e.Message);
+        }
 
         public List<dynamic> DynamicRead(string query, List<SqlParameter> parameters)
         {
@@ -61,6 +68,43 @@ namespace DynamicConnections
         }
 
         /// <summary>
+        /// You may want to execute and manage the commands yourself
+        /// Execute the Query without Opening/closing the connection
+        /// Remember: With great powers. Greater the damage... don't fix me
+        /// </summary>
+        /// <param name="sqlCommand">Command to be executed</param>
+        /// <param name="parameters">List of sql parameters</param>
+        /// <returns>returns the number of changed rows</returns>
+        public int ExecuteUnManagedCommand(SqlCommand sqlCommand, List<SqlParameter> parameters = null)
+        {
+            if (parameters != null && parameters.Count > 0)
+            {
+                foreach (var param in parameters)
+                {
+                    sqlCommand.Parameters.Add(param);
+                }
+            }
+
+            return sqlCommand.ExecuteNonQuery();
+        }
+
+        /// <summary>
+        /// You may want to execute and manage the commands yourself
+        /// Execute the Query without Opening/closing the connection
+        /// Remember: With great powers. Greater the damage... don't fix me
+        /// </summary>
+        /// <param name="query">Query to be executed</param>
+        /// <param name="parameters">List of sql parameters</param>
+        /// <returns>returns the number of changed rows</returns>
+        public int ExecuteUnManagedQuery(string query, List<SqlParameter> parameters = null)
+        {
+            using (SqlCommand sqlCommand = new SqlCommand(query, SqlConnection))
+            {
+               return ExecuteUnManagedCommand(sqlCommand, parameters);
+            }
+        }
+
+        /// <summary>
         /// Read the result after sending query to DB
         /// </summary>
         /// <param name="query"></param>
@@ -75,20 +119,9 @@ namespace DynamicConnections
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="query"></param>
-        /// <returns>Object(T) List from query result</returns>
-        public List<T> DynamicRead<T>(string query)
-        {
-            return JsonConvert.DeserializeObject<List<T>>(JsonDynamicRead(query));
-        }
-
-        /// <summary>
-        /// Read the result after sending query to DB
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="query"></param>
         /// <param name="parameters">List of sql parameters</param>
         /// <returns>Object(T) List from query result</returns>
-        public List<T> DynamicRead<T>(string query, List<SqlParameter> parameters)
+        public List<T> DynamicRead<T>(string query, List<SqlParameter> parameters = null)
         {
             return JsonConvert.DeserializeObject<List<T>>(JsonDynamicRead(query, parameters));
         }
@@ -97,19 +130,9 @@ namespace DynamicConnections
         /// Read the result after sending query to DB
         /// </summary>
         /// <param name="query"></param>
-        /// <returns>Returns a json string from the list</returns>
-        public string JsonDynamicRead(string query)
-        {
-            return JsonConvert.SerializeObject(DynamicRead(query));
-        }
-
-        /// <summary>
-        /// Read the result after sending query to DB
-        /// </summary>
-        /// <param name="query"></param>
         /// <param name="parameters">List of sql parameters</param>
         /// <returns>Returns a json string from the list</returns>
-        public string JsonDynamicRead(string query, List<SqlParameter> parameters)
+        public string JsonDynamicRead(string query, List<SqlParameter> parameters = null)
         {
             return JsonConvert.SerializeObject(DynamicRead(query, parameters));
         }
@@ -118,31 +141,27 @@ namespace DynamicConnections
         /// Execute the Query
         /// </summary>
         /// <param name="query"></param>
-        /// <returns>returns the number of changed rows</returns>
-        public int ExecuteQuery(string query)
-        {
-            return ExecuteQuery(new List<string>() { query });
-        }
-
-        /// <summary>
-        /// Execute the Querys
-        /// </summary>
-        /// <param name="query"></param>
-        /// <returns>returns the number of changed rows</returns>
-        public int ExecuteQuery(List<string> querys)
-        {
-            return ExecuteQuery(querys, null);
-        }
-
-        /// <summary>
-        /// Execute the Querys
-        /// </summary>
-        /// <param name="query"></param>
-        /// <param name="parameters">List of sql parameters</param>
-        /// <returns>returns the number of changed rows</returns>
-        public int ExecuteQuery(string query, List<SqlParameter> parameters)
+        /// <returns>Returns the number of changed rows</returns>
+        public int ExecuteQuery(string query, List<SqlParameter> parameters = null)
         {
             return ExecuteQuery(new List<string>() { query }, parameters);
+        }
+
+        public List<string> _Messages { get; set; }
+        public List<string> Messages
+        {
+            get
+            {
+                if (_Messages == null)
+                {
+                    _Messages = new List<string>();
+                }
+                return _Messages;
+            }
+            set
+            {
+                _Messages = value;
+            }
         }
 
         /// <summary>
@@ -151,7 +170,7 @@ namespace DynamicConnections
         /// <param name="querys"></param>
         /// <param name="parameters">List of sql parameters</param>
         /// <returns>returns the number of changed rows</returns>
-        public int ExecuteQuery(List<string> querys, List<SqlParameter> parameters)
+        public int ExecuteQuery(List<string> querys, List<SqlParameter> parameters = null)
         {
             int c = 0;
             SqlConnection.Open();
